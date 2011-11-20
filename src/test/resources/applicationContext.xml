@@ -7,7 +7,12 @@
                       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
                       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <bean id="channelFactory" class="com.yuyijq.rpc.client.ChannelFactory"></bean>
+    <bean id="nettyTransport" class="com.yuyijq.rpc.client.netty.NettyRpcTransport">
+
+    </bean>
+    <bean id="channelFactory" class="com.yuyijq.rpc.client.ChannelFactory">
+        <constructor-arg name="transport" ref="nettyTransport" />
+    </bean>
     <bean id="clientProxy" class="com.yuyijq.rpc.client.ClientProxy">
         <constructor-arg name="channelFactory" ref="channelFactory"/>
     </bean>
