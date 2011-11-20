@@ -12,6 +12,16 @@
         <spring.version>3.0.5.RELEASE</spring.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>netty</id>
+            <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -33,6 +43,11 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.netty</groupId>
+            <artifactId>netty</artifactId>
+            <version>3.2.6.Final</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

@@ -1,7 +1,5 @@
 package com.yuyijq.rpc;
 
-import com.yuyijq.rpc.client.User;
-
 /**
  * User: zhaohuiyu
  * Date: 11/9/11

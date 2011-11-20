@@ -1,5 +1,6 @@
 package com.yuyijq.rpc.model;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
@@ -7,7 +8,7 @@ import java.lang.reflect.Method;
  * Date: 11/10/11
  * Time: 10:18 PM
  */
-public class Request extends TransferData {
+public class Request implements Serializable {
     private String method;
     private Object[] parameters;
     private String service;

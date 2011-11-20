@@ -1,10 +1,5 @@
 package com.yuyijq.rpc.client;
 
-import com.yuyijq.rpc.handler.Handler;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * User: zhaohuiyu
  * Date: 11/10/11
@@ -12,24 +7,15 @@ import java.util.List;
  */
 public class ChannelFactory {
 
-    private List<Handler> handlers;
+    private RpcTransport transport;
 
-    public ChannelFactory(Handler... handlers) {
-        this.handlers = new ArrayList<Handler>();
-        Handler preHandler = null;
-        Handler currentHandler;
-        for (Handler handler : handlers) {
-            currentHandler = handler;
-            if (preHandler != null) {
-                preHandler.setNextHandler(currentHandler);
-            }
-            this.handlers.add(handler);
-            preHandler = currentHandler;
-        }
+    public ChannelFactory(RpcTransport transport) {
+
+        this.transport = transport;
     }
 
     public Channel getChannel() {
-        Channel channel = new Channel(this.handlers);
+        Channel channel = new Channel(this.transport);
         return channel;
     }
 }

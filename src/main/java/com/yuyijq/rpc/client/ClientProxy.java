@@ -16,6 +16,9 @@ public class ClientProxy implements InvocationHandler {
     }
 
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+        if(method.getName().equalsIgnoreCase("toString")){
+            return null;
+        }
         return channelFactory.getChannel().invoke(method, objects);
     }
 }

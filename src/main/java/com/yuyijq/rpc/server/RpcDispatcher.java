@@ -2,7 +2,7 @@ package com.yuyijq.rpc.server;
 
 import com.yuyijq.rpc.model.Request;
 import com.yuyijq.rpc.model.Response;
-import com.yuyijq.rpc.model.TransportData;
+import com.yuyijq.rpc.server.handlermapping.HandlerMapping;
 
 /**
  * User: zhaohuiyu
@@ -10,15 +10,15 @@ import com.yuyijq.rpc.model.TransportData;
  * Time: 11:56 PM
  */
 public class RpcDispatcher {
-    private Router router;
+    private HandlerMapping handlerMapping;
 
-    public RpcDispatcher(Router router) {
-        this.router = router;
+    public RpcDispatcher(HandlerMapping handlerMapping) {
+        this.handlerMapping = handlerMapping;
     }
 
-    public TransportData service(Request request, Response response) {
-        ServiceAdapter service = router.route(request);
-        return service.handle(request, response);
+    public void service(Request request, Response response) {
+        HandlerAdapter handler = handlerMapping.getHandler(request);
+        handler.handle(request, response);
     }
 
 }

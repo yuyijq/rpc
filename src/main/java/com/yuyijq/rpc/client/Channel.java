@@ -1,10 +1,9 @@
 package com.yuyijq.rpc.client;
 
-import com.yuyijq.rpc.handler.Handler;
 import com.yuyijq.rpc.model.Request;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.List;
 
 /**
  * User: zhaohuiyu
@@ -12,13 +11,15 @@ import java.util.List;
  * Time: 9:56 PM
  */
 public class Channel {
-    private List<Handler> handlers;
+    private RpcTransport transport;
 
-    public Channel(List<Handler> handlers) {
-        this.handlers = handlers;
+    public Channel(RpcTransport transport) {
+        this.transport = transport;
     }
 
-    public Object invoke(Method method, Object[] parameters) {
-        return handlers.get(0).handle(new Request(method, parameters));
+    public Object invoke(final Method method, final Object[] parameters) throws IOException {
+        transport.send(new Request(method, parameters));
+        return transport.receive();
+
     }
 }

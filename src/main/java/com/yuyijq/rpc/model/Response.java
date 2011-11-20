@@ -10,10 +10,6 @@ import java.nio.channels.SelectableChannel;
 public class Response {
     private SelectableChannel channel;
 
-    public Response(SelectableChannel channel) {
-        this.channel = channel;
-    }
-
     public void write(Object result) {
     }
 
