@@ -15,4 +15,6 @@ public interface RpcTransport {
     void send(Request request);
 
     Object receive();
+
+    void asyncSend(Request request, Callback callback);
 }

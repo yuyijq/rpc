@@ -22,5 +22,11 @@ public class ClientTest {
         User user = service.findById(1L);
 
         System.out.println(user.getUserName());
+
+        service.beginFindById(1L,new Callback<User>(){
+           public void receive(User user){
+               System.out.println(user.getUserName());
+           }
+        });
     }
 }

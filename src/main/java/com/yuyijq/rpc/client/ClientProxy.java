@@ -15,10 +15,16 @@ public class ClientProxy implements InvocationHandler {
         this.channelFactory = channelFactory;
     }
 
-    public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
-        if(method.getName().equalsIgnoreCase("toString")){
+    public Object invoke(Object o, Method asyncMethod, Object[] objects) throws Throwable {
+        if (asyncMethod.getName().equalsIgnoreCase("toString")) {
             return null;
         }
-        return channelFactory.getChannel().invoke(method, objects);
+        if (asyncMethod.getName().startsWith("begin")) {
+            String method = asyncMethod.getName().substring("begin".length());
+            channelFactory.getChannel().asyncInvoke(asyncMethod.getDeclaringClass().getSimpleName(), method, objects);
+            return null;
+        } else {
+            return channelFactory.getChannel().invoke(asyncMethod, objects);
+        }
     }
 }

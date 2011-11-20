@@ -27,6 +27,12 @@ public class Request implements Serializable {
         this.parameters = parameters;
     }
 
+    public Request(String service, String method, Object[] parameters) {
+        this.service = service;
+        this.method = method;
+        this.parameters = parameters;
+    }
+
     public String getMethod() {
         return method;
     }

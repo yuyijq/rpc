@@ -22,4 +22,12 @@ public class Channel {
         return transport.receive();
 
     }
+
+    public void asyncInvoke(String service, String method, Object[] parameters) {
+        Object[] newParameters = new Object[parameters.length - 1];
+        for (int i = 0; i < parameters.length - 1; ++i) {
+            newParameters[i] = parameters[i];
+        }
+        transport.asyncSend(new Request(service, method, newParameters), (Callback) parameters[parameters.length - 1]);
+    }
 }

@@ -28,7 +28,7 @@ public class StaticHandlerMapping implements HandlerMapping {
         Object service = serviceMap.get(request.getService());
         Method[] handles = service.getClass().getDeclaredMethods();
         for (Method handle : handles) {
-            if (handle.getName().equals(request.getMethod())) {
+            if (handle.getName().equalsIgnoreCase(request.getMethod())) {
                 return new HandlerAdapter(service, handle);
             }
         }
