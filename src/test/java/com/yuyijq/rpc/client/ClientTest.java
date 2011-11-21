@@ -28,7 +28,7 @@ public class ClientTest {
 
         assertThat(user.getUserName(), is("yuyijq"));
 
-        service.beginFindById(1L, new Callback<User>() {
+        service.findByIdAsync(1L, new Callback<User>() {
             public void receive(User user1) {
                 assertThat(user1.getUserName(), is("yuyijq"));
             }

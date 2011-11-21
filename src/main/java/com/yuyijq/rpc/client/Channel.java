@@ -23,7 +23,7 @@ public class Channel {
 
     }
 
-    public void asyncInvoke(String service, String method, Object[] parameters) {
+    public void invokeAsync(String service, String method, Object[] parameters) {
         Object[] newParameters = new Object[parameters.length - 1];
         for (int i = 0; i < parameters.length - 1; ++i) {
             newParameters[i] = parameters[i];

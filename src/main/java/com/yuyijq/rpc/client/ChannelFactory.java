@@ -10,7 +10,6 @@ public class ChannelFactory {
     private RpcTransport transport;
 
     public ChannelFactory(RpcTransport transport) {
-
         this.transport = transport;
     }
 

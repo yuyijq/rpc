@@ -9,22 +9,29 @@ import java.lang.reflect.Method;
  * Time: 7:52 AM
  */
 public class ClientProxy implements InvocationHandler {
+    public static final String ASYNC_SUFFIX = "Async";
+
     private ChannelFactory channelFactory;
 
     public ClientProxy(ChannelFactory channelFactory) {
         this.channelFactory = channelFactory;
     }
 
-    public Object invoke(Object o, Method asyncMethod, Object[] objects) throws Throwable {
-        if (asyncMethod.getName().equalsIgnoreCase("toString")) {
+    public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+        String methodName = method.getName();
+        if (isSpecialMethod(methodName)) {
             return null;
         }
-        if (asyncMethod.getName().startsWith("begin")) {
-            String method = asyncMethod.getName().substring("begin".length());
-            channelFactory.getChannel().asyncInvoke(asyncMethod.getDeclaringClass().getSimpleName(), method, objects);
+        if (methodName.endsWith(ASYNC_SUFFIX)) {
+            String modifiedMethodName = methodName.substring(0, methodName.lastIndexOf(ASYNC_SUFFIX));
+            channelFactory.getChannel().invokeAsync(method.getDeclaringClass().getSimpleName(), modifiedMethodName, objects);
             return null;
         } else {
-            return channelFactory.getChannel().invoke(asyncMethod, objects);
+            return channelFactory.getChannel().invoke(method, objects);
         }
+    }
+
+    private boolean isSpecialMethod(String methodName) {
+        return methodName.equalsIgnoreCase("toString");
     }
 }

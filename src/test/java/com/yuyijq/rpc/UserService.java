@@ -10,5 +10,5 @@ import com.yuyijq.rpc.client.Callback;
 public interface UserService {
     User findById(Long id);
 
-    void beginFindById(Long id, Callback<User> callback);
+    void findByIdAsync(Long id, Callback<User> callback);
 }
